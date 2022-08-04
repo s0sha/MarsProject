@@ -6,7 +6,7 @@ using MarsProject1.Utilities;
 
 namespace MarsProject1.Pages
 {
-    enum SignOutOption { SearchResults, ServiceListing,RequestSent };
+    enum SignOutOption { SearchResults, ServiceListing,RequestSent,ManageSentRequests };
     internal class HomePage
     {
        
@@ -62,11 +62,8 @@ namespace MarsProject1.Pages
                 else
                 {
                     String nextPage = driver.Title.ToString();
-                    if (nextPage == "Home")
-                    {
-                        Console.WriteLine("Successfull Login" + nextPage);
-                    }
-                    else { Console.WriteLine("Login Result" + nextPage); }
+                    Assert.IsTrue(nextPage == "Home","Successful Login.","Login was not Successful.");
+                    
 
                 }
                 
@@ -93,7 +90,7 @@ namespace MarsProject1.Pages
                 var noElements = verifyEmailForm.FindElements(By.TagName("div"));
                 if (noElements.Count == 4) { return false; }
                 else if (noElements.Count == 2) { return true; }
-                else { Console.WriteLine("No of element do not match"); return false; }
+                else { return false; }
             }
             catch (Exception ex)
             {
@@ -136,33 +133,41 @@ namespace MarsProject1.Pages
 
 
         }
-
+        
         public string SignOut(IWebDriver driver,SignOutOption FromPage)
         {
             try
             {
                 if (FromPage == SignOutOption.SearchResults)
                 {
-
+                    Wait.WaitForClickableWE(driver,"By.XPath", "//*[@id='service-search-section']/section[1]/div/a[2]", 10);
                     IWebElement profileButton = driver.FindElement(By.XPath("//*[@id='service-search-section']/section[1]/div/a[2]"));
                     profileButton.Click();
                 }
                 else if (FromPage == SignOutOption.ServiceListing)
                 {
+                    Wait.WaitForClickableWE(driver, "By.XPath", "//*[@id='listing-management-section']/section[1]/div/a[2]", 10);
                     IWebElement profileButton = driver.FindElement(By.XPath("//*[@id='listing-management-section']/section[1]/div/a[2]"));
                     profileButton.Click();
-              
+
 
                 }
-                else if (FromPage == SignOutOption.RequestSent) 
+                else if (FromPage == SignOutOption.RequestSent)
                 {
+                    Wait.WaitForClickableWE(driver, "By.XPath", "//*[@id='service-detail-section']/section[1]/div/a[2]", 10);
                     IWebElement profileButton = driver.FindElement(By.XPath("//*[@id='service-detail-section']/section[1]/div/a[2]"));
                     profileButton.Click();
 
                 }
+                else if (FromPage==SignOutOption.ManageSentRequests) 
+                {
+                    Wait.WaitForClickableWE(driver, "By.XPath", "//*[@id='sent-request-section']/section[1]/div/a[2]", 10);
+                    IWebElement profileButton = driver.FindElement(By.XPath("//*[@id='sent-request-section']/section[1]/div/a[2]"));
+                    profileButton.Click();
+                }
 
 
-                
+                Wait.WaitForClickableWE(driver, "By.XPath", "//*[@id='account-profile-section']/div/div[1]/div[2]/div/a[2]/button", 10);
                 IWebElement signOutButton = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/div[1]/div[2]/div/a[2]/button"));
                 signOutButton.Click();
                 return "SignOut Successfull.";

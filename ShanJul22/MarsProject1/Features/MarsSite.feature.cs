@@ -20,9 +20,9 @@ namespace MarsProject1.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("A User is able to login to MarsSite, share a skill, search for a skill and contac" +
-        "t provider.")]
-    public partial class AUserIsAbleToLoginToMarsSiteShareASkillSearchForASkillAndContactProvider_Feature
+    [NUnit.Framework.DescriptionAttribute("A User is able to login to the MarsSite, share a skill, search for a skill and co" +
+        "ntact provider.")]
+    public partial class AUserIsAbleToLoginToTheMarsSiteShareASkillSearchForASkillAndContactProvider_Feature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
@@ -36,8 +36,10 @@ namespace MarsProject1.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "A User is able to login to MarsSite, share a skill, search for a skill and contac" +
-                    "t provider.", "A short summary of the feature", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "A User is able to login to the MarsSite, share a skill, search for a skill and co" +
+                    "ntact provider.", "The tests below test user login, create a listing to share,\r\n                sear" +
+                    "ch for a skill on the search and contact provider and\r\n\t\t\t\tReview Requests Sent " +
+                    "and Action.", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -86,7 +88,7 @@ namespace MarsProject1.Features
             argumentsOfScenario.Add("Skill", skill);
             argumentsOfScenario.Add("Provider", provider);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[A user can search for a example skill and contact a example Provider ]", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 5
+#line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -96,16 +98,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 6
+#line 8
  testRunner.Given("[User is logged into website.]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 7
+#line 9
  testRunner.When(string.Format("[User enters \'{0}\' in search button and press Enter. ]", skill), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 8
+#line 10
  testRunner.Then(string.Format("[User can verify if user \'{0}\' exists and send a request to provider.]", provider), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 9
+#line 11
  testRunner.Then("[User can SignOut of portal.]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -121,7 +123,7 @@ this.ScenarioInitialize(scenarioInfo);
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[A User can enter invalid data in the Share Skill form, receive the correct error" +
                     " messages, enter valid data and share the listing]", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 18
+#line 20
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -131,18 +133,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 20
+#line 22
  testRunner.Given("[User is logged into website.]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 21
+#line 23
  testRunner.When("[User clicks on ShareSkill, user can navigate to ShareSkill Form]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 22
+#line 24
  testRunner.Then("[User can Enter invalid Data, Title, Description, StartDate and Receive Error Mes" +
                         "sages, Correct Form with correct CTitle,CDescription,CStartDate and Save Listing" +
                         "]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 23
+#line 25
  testRunner.Then("[User can SignOut of portal.]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -161,7 +163,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("UserName", userName);
             argumentsOfScenario.Add("Password", password);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[Check User Login with incorrect input]", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 26
+#line 28
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -171,11 +173,48 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 28
+#line 30
  testRunner.Given("[User has launched website]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 29
+#line 31
  testRunner.Then(string.Format("[User can enter \'{0}\' and \'{1}\' and login to portal]", userName, password), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 32
+ testRunner.Then("[User can SignOut of portal.]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("[User can goto Sent Requests and Action Reqests Sent.]")]
+        public void UserCanGotoSentRequestsAndActionReqestsSent_()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[User can goto Sent Requests and Action Reqests Sent.]", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 40
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 42
+ testRunner.Given("[User is logged into website.]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 43
+ testRunner.When("[User clicks on Manage Requests menu option and goes to Sent Requests option.]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 44
+ testRunner.Then("[User can review requests sent and action, provide a review and withdraw request." +
+                        "]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 45
+ testRunner.Then("[User can SignOut of portal.]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

@@ -15,7 +15,7 @@ namespace MarsProject1.Pages
        
         public Boolean VerifyResults(IWebDriver driver,string profile) 
         {
-            int NoOfResults = 0;
+            
             try
             {
 
@@ -28,9 +28,7 @@ namespace MarsProject1.Pages
 
                 IWebElement resultNo = driver.FindElement(By.XPath("//*[@id='service-search-section']/div[2]/div/section/div/div[1]/div[1]/div/a[1]/span"));
                 
-                /*Console.WriteLine(resultNo.Text);
-                     NoOfResults = NoOfResults+ Convert.ToInt32(resultNo.Text);
-                */
+               
 
                 if (resultNo.Text != "0")
                 {

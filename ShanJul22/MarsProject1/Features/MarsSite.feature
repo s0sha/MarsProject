@@ -1,7 +1,8 @@
 ﻿Feature: A User is able to login to the MarsSite, share a skill, search for a skill and contact provider.
 
 The tests below test user login, create a listing to share,
-                search for a skill on the search and contact provider.
+                search for a skill on the search and contact provider and
+				Review Requests Sent and Action.
 	
 Scenario Outline: [A user can search for a example skill and contact a example Provider ]
 	Given [User is logged into website.]
@@ -24,7 +25,6 @@ Scenario: [A User can enter invalid data in the Share Skill form, receive the co
 	Then  [User can SignOut of portal.]
 
 
-
 Scenario Outline:[Check User Login with incorrect input]
 
 	Given [User has launched website]
@@ -37,5 +37,10 @@ Scenario Outline:[Check User Login with incorrect input]
 			| abcabcd           | abcabc   |
 			| mylogin@email     | abcabc   |
 
-
+Scenario: [User can goto Sent Requests and Action Reqests Sent.]
 	
+	Given [User is logged into website.]
+	When  [User clicks on Manage Requests menu option and goes to Sent Requests option.]
+	Then  [User can review requests sent and action, provide a review and withdraw request.]
+	Then  [User can SignOut of portal.]
+

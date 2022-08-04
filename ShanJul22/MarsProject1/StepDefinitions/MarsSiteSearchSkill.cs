@@ -12,27 +12,28 @@ namespace MarsProject1.StepDefinitions
     [Binding]
     public class MarsSiteSearchSkill
     {
-        protected IWebDriver driver = new ChromeDriver();
-        
-        private HomePage login = new();
-        private SellerHomePage searchText = new();
-        private SearchResultsPage viewResult = new();
-        private ShareSkillPage shareListing = new();
+        protected IWebDriver _driver = new ChromeDriver();
 
-        string url = "http://localhost:5000";
+        private HomePage _login = new();
+        private SellerHomePage _userHomePage = new();
+        private SearchResultsPage _viewResult = new();
+        private ShareSkillPage _shareListing = new();
+        private RequestSentPage _requestSent = new();
+
+        string _url = "http://localhost:5000";
 
         [Given(@"\[User is logged into website\.]")]
         public void GivenUserIsLoggedIntoWebsite_()
         {
-           
-            driver.Manage().Window.Maximize();
+
+            _driver.Manage().Window.Maximize();
 
 
-            driver.Navigate().GoToUrl(url);
+            _driver.Navigate().GoToUrl(_url);
 
             string userName = "shankari99@yahoo.com";
             string passWord = "abcdtest";
-            login.LoginAsUser(driver,userName,passWord);
+            _login.LoginAsUser(_driver, userName, passWord);
 
         }
 
@@ -40,16 +41,9 @@ namespace MarsProject1.StepDefinitions
         [When(@"\[User enters '([^']*)' in search button and press Enter\. ]")]
         public void WhenUserEntersSkillInSearchButtonAndPressEnter_(string p0)
         {
-            
-                Assert.True(searchText.SearchSkill(driver, p0),"User Can Search For " + p0);
-            /*    
-            else
-            { Console.WriteLine(p0 + " does not exist");
-                String searchResult = login.SignOut(driver, SignOutOption.SearchResults);
-                Console.WriteLine(searchResult);
-            
-            }
-            */
+
+            Assert.True(_userHomePage.SearchSkill(_driver, p0), "Skill " + p0 + "is listed in Search Results.", "Skill " + p0 + "is not listed in Search Results.");
+
         }
 
 
@@ -57,49 +51,43 @@ namespace MarsProject1.StepDefinitions
         [Then(@"\[User can verify if user '([^']*)' exists and send a request to provider\.]")]
         public void ThenUserCanVerifyIfUserProviderExists_(string p0)
         {
+
             SignOutOption searchstatus;
 
-            Boolean searchResult = viewResult.VerifyResults(driver, p0);
-            Assert.True(searchResult,"Provider "+p0+" does not exists in Search Result.");
+
+            Boolean searchResult = _viewResult.VerifyResults(_driver, p0);
+
+            //Assert.True(searchResult, "Provider " + p0 + " is found in Search Result.", "Provider " + p0 + " is not found in Search Result.");
 
             if (searchResult)
             {
-                //Console.WriteLine(p0 + " Provider exists in Search Result");
-                int SuccessEvent = viewResult.SendRequest(driver);
-                string SuccessMsg;
 
-                if (SuccessEvent == 1)  SuccessMsg = "Message Successfully Sent to Skill Provider."; 
-                else if ((SuccessEvent == 2) || (SuccessEvent == 5)) SuccessMsg = "Request already sent to Provider";
-                else if (SuccessEvent == 4) SuccessMsg = "Exception Thrown No such Element";
-                else SuccessMsg = "No Return Message";
+                _viewResult.SendRequest(_driver);
 
                 searchstatus = SignOutOption.RequestSent;
-                Console.WriteLine(SuccessMsg);
-                
-                
+
 
             }
-            else 
+            else
             {
-               // Console.WriteLine( p0 + " not found. "); 
+
                 searchstatus = SignOutOption.SearchResults;
             }
-            
-            string signOutStatus = login.SignOut(driver,searchstatus);
-            Console.WriteLine(signOutStatus);
+
+            _login.SignOut(_driver, searchstatus);
 
         }
 
 
-       
+
 
 
         [When(@"\[User clicks on ShareSkill, user can navigate to ShareSkill Form]")]
         public void WhenUserClicksOnShareSkillUserCanNavigateToShareSkillForm()
         {
-            
-            shareListing.GoToShareASkill(driver);
-            
+
+            _userHomePage.GoToShareASkill(_driver);
+
         }
 
 
@@ -108,14 +96,13 @@ namespace MarsProject1.StepDefinitions
         {
             //Read from DataFile
             DataFile.openFile();
-            String title=DataFile.getData();String description = DataFile.getData(); String StartDate=DataFile.getData();
-            String cTitle=DataFile.getData();String cDescription=DataFile.getData(); String cStartDate=DataFile.getData();
+            String title = DataFile.getData(); String description = DataFile.getData(); String StartDate = DataFile.getData();
+            String cTitle = DataFile.getData(); String cDescription = DataFile.getData(); String cStartDate = DataFile.getData();
 
-            shareListing.AddListing(driver,title,description,StartDate,cTitle,cDescription,cStartDate);
-            
+            _shareListing.AddListing(_driver, title, description, StartDate, cTitle, cDescription, cStartDate);
 
-            string signOutStatus = login.SignOut(driver, SignOutOption.ServiceListing);
-            Console.WriteLine(signOutStatus);
+
+            _login.SignOut(_driver, SignOutOption.ServiceListing);
 
         }
 
@@ -123,31 +110,45 @@ namespace MarsProject1.StepDefinitions
         [Then(@"\[User can SignOut of portal\.]")]
         public void ThenUserCanSignOutOfPortal_()
         {
-            
-            driver.Close();
+
+            _driver.Close();
         }
 
 
         [Given(@"\[User has launched website]")]
         public void GivenUserHasLaunchedWebsite()
         {
-            driver.Manage().Window.Maximize();
+            _driver.Manage().Window.Maximize();
 
 
-            driver.Navigate().GoToUrl(url);
-            
+            _driver.Navigate().GoToUrl(_url);
+
         }
 
         [Then(@"\[User can enter '([^']*)' and '([^']*)' and login to portal]")]
         public void ThenUserCanEnterAndAndLoginToPortal(string username, string password)
         {
-            login.LoginAsUser(driver,username,password);
-            
+            _login.LoginAsUser(_driver, username, password);
+
+
+
+        }
+
+        [When(@"\[User clicks on Manage Requests menu option and goes to Sent Requests option\.]")]
+        public void WhenUserClicksOnManageRequestsMenuOptionAndGoesToSentRequestsOption_()
+        {
+            _userHomePage.GoToSentRequests(_driver);
+        }
+
+        [Then(@"\[User can review requests sent and action, provide a review and withdraw request\.]")]
+        public void ThenUserCanReviewRequestsSentAndActionProvideAReviewAndWithdrawRequest_()
+        {
+            _requestSent.veiwRequestSent(_driver);
+            _login.SignOut(_driver, SignOutOption.ManageSentRequests);
+           
+
         }
 
 
-
     }
-
-
 }

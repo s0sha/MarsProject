@@ -25,8 +25,8 @@ namespace MarsProject1.Utilities
 
 
         public static string path = MScreenPrint.GetPath();
-        public static string path2 = "C://ShanJul22/ShanJul22/MarsProject1/ScreenPrints/" + "index.html";
-
+        public static string path2 = "" + "C://MVP Project/MarsProject/ShanJul22/MarsProject1/ScreenPrints/";
+   
         public static int cnt = 0;
 
 

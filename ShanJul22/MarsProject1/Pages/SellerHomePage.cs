@@ -44,7 +44,100 @@ namespace MarsProject1.Pages
         }
 
 
-       
+
+        public void GoToShareASkill(IWebDriver driver)
+        {
+            try
+            {
+
+
+                MScreenPrint.TakePrint(driver, "ProfilePage");
+
+                Wait.FluentWaitForClickableWE(driver, "By.XPath", "//*[@id='account-profile-section']/div/section[1]/div/div[2]/a", 15);
+
+                IWebElement shareSkill = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[1]/div/div[2]/a"));
+                shareSkill.Click();
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+
+                Assert.Fail("ShareSkill Link Failed to Open ", ex.Message);
+
+
+            }
+        }
+
+        public void GoToSentRequests(IWebDriver driver)
+        {
+
+            try
+            {
+
+                string manageRequests = "//*[@id='account-profile-section']/div/section[1]/div/div[1]";
+                //ManageRequests
+                Wait.FluentWaitForClickableWE(driver, "By.XPath", manageRequests, 15);
+
+                IWebElement manageRequestsOption = driver.FindElement(By.XPath(manageRequests));
+                manageRequestsOption.Click();
+
+                Wait.WaitForClickableWE(driver, "By.XPath", "//*[@id='account-profile-section']/div/section[1]/div/div[1]/div/a[2]", 10);
+
+                IWebElement sentRequests = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[1]/div/div[1]/div/a[2]"));
+                sentRequests.Click();
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+
+                Assert.Fail("Cannot Goto Menu Option Sent Requests"+ex.Message);
+
+
+            }
+        }
+
+        public void GoToReceivedRequests(IWebDriver driver)
+        {
+
+                try
+                {
+
+                    string manageRequests = "//*[@id='account-profile-section']/div/section[1]/div/div[1]";
+                    //ManageRequests
+                    Wait.FluentWaitForClickableWE(driver, "By.XPath", manageRequests, 15);
+
+                    IWebElement manageRequestsOption = driver.FindElement(By.XPath(manageRequests));
+                    manageRequestsOption.Click();
+
+                    IWebElement receivedRequests = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[1]/div/div[1]/div/a[1]"));
+                    receivedRequests.Click();
+
+
+
+                }
+
+                catch (Exception ex)
+                {
+
+                    Assert.Fail("Cannot Goto Menu Option Received Requests", ex.Message);
+
+
+                }
+
+
+        }
+
+        
+
+
+
+
     }
 
 }

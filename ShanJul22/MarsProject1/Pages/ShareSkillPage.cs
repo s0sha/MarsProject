@@ -17,32 +17,9 @@ namespace MarsProject1.Pages
 {
     internal class ShareSkillPage
     {
-       
-        public void GoToShareASkill(IWebDriver driver)
-        {
-            try
-            {
-
-                
-                MScreenPrint.TakePrint(driver,"ProfilePage");
-
-                Wait.FluentWaitForClickableWE(driver, "By.XPath", "//*[@id='account-profile-section']/div/section[1]/div/div[2]/a", 15);
-
-                IWebElement shareSkill = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[1]/div/div[2]/a"));
-                shareSkill.Click();
 
 
 
-            }
-
-            catch (Exception ex)
-            {
-
-                Assert.Fail("ShareSkill Link Failed to Open ", ex.Message);
-
-
-            }
-        }
 
         private void AddTitle(IWebDriver driver, string strTitle, Boolean myError)
         {
@@ -79,7 +56,7 @@ namespace MarsProject1.Pages
 
         private void AddStrtDate(IWebDriver driver, string strStDate, Boolean myError)
         {
-            Console.WriteLine(strStDate);
+            
             try
             {
                 IWebElement startDate = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]/div[1]/div[1]/div[2]/input"));
@@ -96,11 +73,11 @@ namespace MarsProject1.Pages
         }
 
 
-        private void SaveListing(IWebDriver driver, string strTitle,string p3,string p4, string p5)
+        private void SaveListing(IWebDriver driver, string strTitle, string p3, string p4, string p5)
         {
             int cnt = 0;
 
-            void MySave() 
+            void MySave()
             {
                 try
                 {
@@ -109,11 +86,11 @@ namespace MarsProject1.Pages
                     IWebElement saveMyListing = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[11]/div/input[1]"));
                     saveMyListing.Click();
 
-                    Console.WriteLine("SaveClick");
+
 
                     Wait.WaitForVisibleWE(driver, "title", "By.TagName", 15);
 
-                    Console.WriteLine("Wait for Listing Display");
+
                     MScreenPrint.TakePrint(driver, "AddListingSuccessful");
                 }
                 catch (Exception ex)
@@ -123,13 +100,13 @@ namespace MarsProject1.Pages
 
             }
 
-            void CheckSave() 
+            void CheckSave()
             {
                 try
                 {
 
                     string strTitle = driver.Title.ToString();
-
+                    //Assert.True((strTitle == "ListingManagement"), " Listing Add was Successfull with given Data", " Listing Add was not Complete, InCorrect Listing Data ");
                     if (strTitle == "ListingManagement")
                     {
 
@@ -137,14 +114,13 @@ namespace MarsProject1.Pages
                         if (myPosting.Text == strTitle)
                         {
 
-                            string myText = "Listing Add Has Been Successful";
-                            Console.WriteLine(myText);
+                            //check myposting
                         }
 
                     }
                     else if (strTitle == "ServiceListing")
                     {
-                        Console.WriteLine("InCorrect Listing Data");
+
                         Boolean myTitleEntry = IncorrectTitle(driver, p3, true);
                         if (myTitleEntry) MScreenPrint.TakePrint(driver, "CorrectTitle");
 
@@ -158,14 +134,14 @@ namespace MarsProject1.Pages
                     }
 
                 }
-                catch (Exception ex) 
+                catch (Exception ex)
                 {
                     Assert.Fail(ex.Message);
                 }
             }
 
 
-            MySave();CheckSave();
+            MySave(); CheckSave();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
         }
@@ -177,7 +153,7 @@ namespace MarsProject1.Pages
 
             try
             {
-                
+
                 Wait.WaitForClickableWE(driver, "By.XPath", "//*[@id='service-listing-section']/div[2]/div/form/div[1]/div/div[2]/div/div[1]/input", 10);
 
                 AddTitle(driver, strTitle, false);
@@ -234,14 +210,14 @@ namespace MarsProject1.Pages
                 IWebElement activeListing = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[10]/div[2]/div/div[1]/div/input"));
                 activeListing.Click();
 
-                SaveListing(driver, strTitle,p3,p4,p5);
+                SaveListing(driver, strTitle, p3, p4, p5);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                
-                    
+
+
                 Assert.Fail("Exited with Error" + ex.Message);
-                
+
 
             }
 
@@ -253,6 +229,9 @@ namespace MarsProject1.Pages
             {
                 IWebElement Title = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[1]/div/div[2]/div/div[2]"));
                 var errorList = Title.FindElements(By.TagName("div"));
+
+                Assert.True((errorList.Count != 0), "Incorrect Title Entry ", "No Incorrect Title Entry Error Message Found");
+
                 if (errorList.Count != 0)
                 {
                     if (driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[1]/div/div[2]/div/div[2]/div")).Displayed)
@@ -260,18 +239,20 @@ namespace MarsProject1.Pages
                         AddTitle(driver, cTitle, true);
                         return true;
                     }
-                    else { Console.WriteLine("Cannot Find InValid Title Error"); return false; }
+                    else { return false; }
 
                 }
-                else {
-                       Console.WriteLine("No Error Message Found"); return false; }
+                else
+                {
+                    return false;
+                }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Assert.Fail("Incorrect Title " + ex.Message);
                 return false;
-                
+
             }
         }
 
@@ -281,6 +262,9 @@ namespace MarsProject1.Pages
             {
                 IWebElement Descrip = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[2]/div/div[2]/div[2]"));
                 var descripList = Descrip.FindElements(By.TagName("div"));
+
+                Assert.True((descripList.Count != 0), "Incorrect Description Entry ", "No Description Entry Error Message Found");
+
                 if (descripList.Count != 0)
                 {
                     if (driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[2]/div/div[2]/div[2]/div")).Displayed)
@@ -290,20 +274,20 @@ namespace MarsProject1.Pages
                     }
                     else
                     {
-                        Console.WriteLine("Cannot Find InValid Description Error"); return false;
+                        return false;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("No Error Message Found"); return false;
+                    return false;
                 }
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Assert.Fail("Incorrect Description " + ex.Message);
                 return false;
-                
+
             }
         }
 
@@ -312,9 +296,11 @@ namespace MarsProject1.Pages
         {
             try
             {
-                                                                    
+
                 IWebElement startDt = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]"));
                 var startDtList = startDt.FindElements(By.TagName("div"));
+                Assert.True((startDtList.Count > 1), "Incorrect Start Date ", "No Incorrect Start Date Error Message Found ");
+
                 if (startDtList.Count > 1)
                 {
                     if (driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]/div[2]")).Displayed)
@@ -324,21 +310,21 @@ namespace MarsProject1.Pages
                     }
                     else
                     {
-                        Console.WriteLine("Cannot Find InValid Start Date Error"); return false;
+                        return false;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("No Error Message Found"); return false;
+                    return false;
                 }
 
-               
+
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
-                Assert.Fail("Incorrect Date "+ex.Message);
+                Assert.Fail("Incorrect Date " + ex.Message);
                 return false;
             }
         }

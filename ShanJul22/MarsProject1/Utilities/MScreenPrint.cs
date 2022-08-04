@@ -11,7 +11,7 @@ namespace MarsProject1.Utilities
     internal static class MScreenPrint
     {
 
-        public static string SavePath = "C://ShanJul22/ShanJul22/MarsProject1/ScreenPrints/";
+        public static string SavePath = "C://MVP Project/MarsProject/ShanJul22/MarsProject1/ScreenPrints/";
         public static string[] Prints = new string[50];
 
         public static int cnt = 0, cntPrint=0;
